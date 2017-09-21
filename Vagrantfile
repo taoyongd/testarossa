@@ -5,8 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "master")
-XS_HOST = ENV.fetch("XS_HOST", "10.71.160.63")
-MEM_GB_PER_HOST = 6
+XS_HOST = ENV.fetch("XS_HOST", "10.71.160.64")
 
 USER = ENV.fetch("USER")
 folders = {'xs/rpms' => '/rpms',
@@ -84,15 +83,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
 # Defines scale{1,2,3} for pool size investigation
-  N = 3
+  N = 64
   S_NAMES = Hash[ (1..N).map{|i| [i, "scale#{i}"]} ]
   (1..N).each do |i|
     hostname = S_NAMES[i]
     config.vm.define hostname do |host|
       host.vm.box = "jonludlam/#{LOCAL_BRANCH}"
+      host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
       host.vm.network "public_network", bridge: "xenbr0"
       config.vm.provider "xenserver" do |xs|
         xs.name = "#{USER}/#{hostname}/#{host.vm.box}"
+        xs.memory = 6144
       end
       host.vm.provision "shell", path: "scripts/xs/update.sh"
       if i==N
@@ -106,14 +107,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
     end
-  end
-
-  config.vm.provider "xenserver" do |xs|
-    xs.use_himn = true
-    xs.memory = 1024 * MEM_GB_PER_HOST
-    xs.xs_host = XS_HOST 
-    xs.xs_username = "root"
-    xs.xs_password = "xenroot"
   end
 
 
