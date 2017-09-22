@@ -14,39 +14,40 @@ folders = {'xs/rpms' => '/rpms',
 #           'xs/bin' => '/bin',
 #           'xs/boot' => '/boot',
 #	   'xs/usr/sbin' => '/usr/sbin',
-#           'scripts' => '/scripts'
+           'scripts' => '/scripts',
+           'test-vm' => '/boot/guest'
            }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # Disable default synced folder
-  config.vm.synced_folder ".", "/vagrant", disabled: true
-
-  config.vm.define "infrastructure" do |infra|
-    infra.vm.box = "jonludlam/xs-centos-7"
-    infra.vm.provision "shell", path: "scripts/infra/vagrant_provision.sh"
-    infra.vm.synced_folder "scripts/infra", "/scripts", type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
-    infra.vm.network "public_network", bridge: "xenbr0"
-    config.vm.provider "xenserver" do |xs|
-        xs.name = "#{USER}/infrastructure/#{infra.vm.box}"
-    end
-  end
-
-  (1..3).each do |i|
-    config.vm.define "ely#{i}" do |host|
-      host.vm.box = "jonludlam/ely"
-      folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
-      host.vm.network "public_network", bridge: "xenbr0"
-      host.vm.provision "shell", path: "scripts/xs/update.sh"
-      host.vm.provision :ansible do |ansible|
-        ansible.groups = {
-	  "honolulu" => (1..3).map{|i| "honolulu#{i}"},
-	  "ely" => (1..3).map{|i| "ely#{i}"}
-	}
-	ansible.limit = "ely"
-	ansible.playbook = "playbook.yml"
-      end
-    end
-  end
+#  config.vm.synced_folder ".", "/vagrant", disabled: true
+#
+#  config.vm.define "infrastructure" do |infra|
+#    infra.vm.box = "jonludlam/xs-centos-7"
+#    infra.vm.provision "shell", path: "scripts/infra/vagrant_provision.sh"
+#    infra.vm.synced_folder "scripts/infra", "/scripts", type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#    infra.vm.network "public_network", bridge: "xenbr0"
+#    config.vm.provider "xenserver" do |xs|
+#        xs.name = "#{USER}/infrastructure/#{infra.vm.box}"
+#    end
+# end
+#
+#  (1..3).each do |i|
+#    config.vm.define "ely#{i}" do |host|
+#      host.vm.box = "jonludlam/ely"
+#      folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
+#      host.vm.network "public_network", bridge: "xenbr0"
+#      host.vm.provision "shell", path: "scripts/xs/update.sh"
+#      host.vm.provision :ansible do |ansible|
+#        ansible.groups = {
+#	  "honolulu" => (1..3).map{|i| "honolulu#{i}"},
+#	  "ely" => (1..3).map{|i| "ely#{i}"}
+#	}
+#	ansible.limit = "ely"
+#	ansible.playbook = "playbook.yml"
+#      end
+#    end
+#  end
 
 #  (1..3).each do |i|
 #    config.vm.define "honolulu#{i}" do |host|
@@ -89,8 +90,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     hostname = S_NAMES[i]
     config.vm.define hostname do |host|
       host.vm.box = "jonludlam/#{LOCAL_BRANCH}"
-      host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
       host.vm.network "public_network", bridge: "xenbr0"
+      folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
       config.vm.provider "xenserver" do |xs|
         xs.name = "#{USER}/#{hostname}/#{host.vm.box}"
         xs.memory = 6144
@@ -112,29 +113,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 # Defines cluster{1,2,3} for corosync investigation
 #  N = 6
-  NAMES = Hash[ (1..N).map{|i| [i, "cluster#{i}"]} ]
-  (1..N).each do |i|
-    hostname = NAMES[i]
-    config.vm.define hostname do |host|
-      host.vm.box = "jonludlam/feature-clustering"
-      host.vm.network "public_network", bridge: "xenbr0"
-      folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
-      host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
-      config.vm.provider "xenserver" do |xs|
-        xs.name = "#{USER}/#{hostname}/#{host.vm.box}"
-      end
-      host.vm.provision :ansible do |ansible|
-       ansible.groups = {
-              "cluster" => NAMES.collect { |k, v| v },
-              "infra" => ["infrastructure"]
-       }
-       ansible.limit = "cluster"
-#        ansible.verbose = "vvv"
-       ansible.playbook = "playbook.yml"
-      end
-    end
-  end
-
+#  NAMES = Hash[ (1..N).map{|i| [i, "cluster#{i}"]} ]
+#  (1..N).each do |i|
+#    hostname = NAMES[i]
+#    config.vm.define hostname do |host|
+#      host.vm.box = "jonludlam/feature-clustering"
+#      host.vm.network "public_network", bridge: "xenbr0"
+#    folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
+#      host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#      config.vm.provider "xenserver" do |xs|
+#        xs.name = "#{USER}/#{hostname}/#{host.vm.box}"
+#      end
+#      host.vm.provision :ansible do |ansible|
+#       ansible.groups = {
+#              "cluster" => NAMES.collect { |k, v| v },
+#              "infra" => ["infrastructure"]
+#       }
+#       ansible.limit = "cluster"
+##        ansible.verbose = "vvv"
+#       ansible.playbook = "playbook.yml"
+#      end
+#    end
+#  end
+#
   config.vm.provider "xenserver" do |xs|
     xs.use_himn = true
     xs.memory = 1024

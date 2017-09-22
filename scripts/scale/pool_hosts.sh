@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # 1 arg per host to pool
-NUM_HOSTS=$#
+
+SSH_CONFIG_FILE='ssh-config-file'
 
 # Get IP of host1
-IP_TMP=$(vagrant ssh $1 -c '/scripts/xs/get_public_ip.sh') #uuid,ip
+IP_TMP=$(ssh -F $SSH_CONFIG_FILE $1 /scripts/xs/get_public_ip.sh) #uuid,ip
 IP=$(echo $IP_TMP | cut -d, -f2)
 
 echo "Pool master IP is $IP"
@@ -16,7 +17,7 @@ shift
 for i in "$@"
 do
   echo "Joining $i to the pool..."
-  vagrant ssh $i -c "xe pool-join master-address=$IP master-username=root master-password=xenroot"
+  ssh -F $SSH_CONFIG_FILE $i xe pool-join master-address=$IP master-username=root master-password=xenroot
   echo "Done"
 done
 
