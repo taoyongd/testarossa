@@ -24,6 +24,22 @@
   - { role: xenserver, device="eth1" }
   - common
 
+- hosts: small
+  become: true
+  become_method: sudo
+  become_user: root
+  roles:
+  - { role: xenserver, device="eth1" }
+  - common
+
+- hosts: medium
+  become: true
+  become_method: sudo
+  become_user: root
+  roles:
+  - { role: xenserver, device="eth1" }
+  - common
+
 - hosts: scale
   become: true
   become_method: sudo

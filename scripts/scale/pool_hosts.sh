@@ -21,4 +21,9 @@ do
   echo "Done"
 done
 
+# Not sure why pool master gets named localhost...
+echo "Changing the name of $1 back..."
+HOST_UUID=$(ssh -F $SSH_CONFIG_FILE $1 xe host-list name-label=localhost --minimal)
+ssh -F $SSH_CONFIG_FILE $1 xe host-param-set name-label=$1 uuid=$HOST_UUID
+
 echo "Add the pool to XC using master IP $IP"
