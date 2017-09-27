@@ -9,12 +9,8 @@ SERVER_PATH='/vol/xenrtnfs/1885284-BgLZmT'
 SHARED_ISO_PATH='10.71.213.9:/vol/xenrtmedia/xenrtmedia/xenrtdata/linux/iso'
 SSH_CONFIG_FILE='ssh-config-file'
 
-echo "Adding the shared NFS SR to host $1"
-ssh -F $SSH_CONFIG_FILE $1 xe sr-create name-label='Shared NFS' type='NFS' device-config:server=$SERVER device-config:serverpath=$SERVER_PATH --shared
-echo "done"
-
-echo "Adding shared linux ISOs to host $1"
-ssh -F $SSH_CONFIG_FILE $1 xe sr-create content-type=iso type=iso name-label='Shared Linux ISOs' device-config:location=$SHARED_ISO_PATH --shared
+echo "Adding the shared iSCSI SR to host $1"
+ssh -F $SSH_CONFIG_FILE $1 xe sr-create type=lvmoiscsi device-config:target=10.71.161.1 device-config:targetIQN=iqn.2009-01.xenrt.test:iscsi07ef2aea device-config:SCSIid=1494554000000000036333730626664620000000000000000 name-label='Shared iSCSI' --shared
 echo "done"
 
 echo "Enabling HA on pool"

@@ -8,15 +8,15 @@ LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "master")
 XS_HOST = ENV.fetch("XS_HOST", "10.71.160.64")
 
 USER = ENV.fetch("USER")
-folders = {'xs/rpms' => '/rpms',
+#folders = {'xs/rpms' => '/rpms',
 #           'xs/opt' => '/opt',
 #           'xs/sbin' => '/sbin',
 #           'xs/bin' => '/bin',
 #           'xs/boot' => '/boot',
 #	   'xs/usr/sbin' => '/usr/sbin',
-           'scripts' => '/scripts',
-           'test-vm' => '/boot/guest'
-           }
+#           'scripts' => '/scripts',
+#           'test-vm' => '/boot/guest'
+#           }
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 # Disable default synced folder
@@ -91,7 +91,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define hostname do |host|
       host.vm.box = "jonludlam/#{LOCAL_BRANCH}"
       host.vm.network "public_network", bridge: "xenbr0"
-      folders.each { |k,v| host.vm.synced_folder k, v, type: "rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"] }
+      host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+      host.vm.synced_folder "test-vm", "/boot/guest", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
       config.vm.provider "xenserver" do |xs|
         xs.name = "#{USER}/#{hostname}/#{host.vm.box}"
         xs.memory = 6144
