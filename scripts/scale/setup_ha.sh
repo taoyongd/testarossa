@@ -45,8 +45,9 @@ echo "Done"
 
 HA_TOLERANCE=$(ssh -F $SSH_CONFIG_FILE $1 xe pool-ha-compute-max-host-failures-to-tolerate)
 echo "Setting HA tolerance to $HA_TOLERANCE"
+echo "(Skipping for performance)"
 
-POOL_UUID=$(ssh -F $SSH_CONFIG_FILE $1 xe pool-list --minimal)
-ssh -F $SSH_CONFIG_FILE $1 xe pool-param-set ha-host-failures-to-tolerate=$HA_TOLERANCE uuid=$POOL_UUID
+#POOL_UUID=$(ssh -F $SSH_CONFIG_FILE $1 xe pool-list --minimal)
+#ssh -F $SSH_CONFIG_FILE $1 xe pool-param-set ha-host-failures-to-tolerate=$HA_TOLERANCE uuid=$POOL_UUID
 
 echo "Done" 

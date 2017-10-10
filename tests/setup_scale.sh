@@ -50,7 +50,8 @@ function setup_medium {
 
 function setup_large {
   HOSTS=$(vagrant status |  grep ^scale |cut -f1 -d' '|xargs echo)
-  vagrant up --provision $HOSTS
+  vagrant up --provision-with shell --parallel $HOSTS
+  vagrant provision --provision-with ansible $HOSTS
   echo $HOSTS
 
   update_ssh_config

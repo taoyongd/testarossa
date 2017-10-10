@@ -32,7 +32,7 @@
   - { role: xenserver, device="eth1" }
   - common
 
-- hosts: medium
+- hosts: med
   become: true
   become_method: sudo
   become_user: root
