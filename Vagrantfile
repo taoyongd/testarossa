@@ -31,15 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         xs.xs_host = SMALL_XS_HOST
       end
       host.vm.provision "shell", path: "scripts/xs/update.sh"
-      if i==3
-        host.vm.provision :ansible do |ansible|
-          ansible.groups = {
-              "small" => (1..3).map{|i| "small#{i}"}
-          }
-         ansible.playbook = "playbook.yml"
-         ansible.limit = "small"
-        end
-      end
     end
   end
 
@@ -58,22 +49,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         xs.xs_host = MED_XS_HOST
       end
       host.vm.provision "shell", path: "scripts/xs/update.sh"
-      if i==16
-        host.vm.provision :ansible do |ansible|
-          ansible.groups = {
-              "med" => (1..16).map{|i| "med#{i}"}
-          }
-         ansible.playbook = "playbook.yml"
-         ansible.limit = "med"
-        end
-      end
     end
   end
 
 
 # Defines scale{1,2,3} for pool size investigation
-  num_hosts = 2
-  num_per_host = 2
+  num_hosts = 4
+  num_per_host = 16
   (0..num_hosts-1).each do |i|
     (1..num_per_host).each do |j|
       id = i*num_per_host + j #1-64
@@ -89,12 +71,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           xs.xs_host = LARGE_XS_HOST[i]
         end
         host.vm.provision "shell", path: "scripts/xs/update.sh"
-        host.vm.provision :ansible do |ansible|
-          ansible.groups = {
-            "scale" => hostname
-          }
-          ansible.playbook = "playbook.yml"
-        end
       end
     end
   end
