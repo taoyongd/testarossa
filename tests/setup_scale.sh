@@ -27,7 +27,7 @@ function setup_hosts {
   echo $HOSTS
 
   # Pool the hosts together
-   . /root/testarossa/scripts/scale/pool_hosts.sh $HOSTS
+  # . /root/testarossa/scripts/scale/pool_hosts.sh $HOSTS
 
   echo "Pausing 15s to allow the hosts to join pool and be reachable"
   sleep 15s
