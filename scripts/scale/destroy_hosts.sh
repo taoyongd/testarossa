@@ -26,6 +26,4 @@ do
   if [ "$arg" == "large" ]; then destroy_large; fi
 done
 
-echo "Removing ssh-config-file"
-rm ssh-config-file || true
 echo "done"
