@@ -4,7 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "team-ring3-master")
+LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "release-falcon-master")
 
 SMALL_XS_HOST = "10.71.216.90" # perfuk-01-01
 MED_XS_HOST = "10.71.136.108" # xrtuk-05-08-perf
