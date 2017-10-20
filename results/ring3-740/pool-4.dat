@@ -1,0 +1,88 @@
+
+Starting 64 VMs
+real	2m58.441s
+user	0m1.060s
+sys	0m0.068s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      341752      680188         956      370244      998540
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	3m29.430s
+user	0m0.984s
+sys	0m0.108s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      393008      616144        1340      383032      941608
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	4m40.164s
+user	0m1.000s
+sys	0m0.064s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      432456      564200        1548      395528      897228
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	5m11.374s
+user	0m0.992s
+sys	0m0.104s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      457980      523792        1856      410412      866780
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	5m51.314s
+user	0m0.992s
+sys	0m0.076s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      495132      472880        2060      424172      824204
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	6m23.504s
+user	0m1.004s
+sys	0m0.084s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      529632      423984        2216      438568      784392
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	7m21.299s
+user	0m1.052s
+sys	0m0.084s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      562448      376460        2368      453276      746320
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	8m36.087s
+user	0m0.976s
+sys	0m0.096s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      623208      295652        2668      473324      678648
+Swap:       1048572           0     1048572
+
+Starting 4 VMs
+real	0m0.001s
+user	0m0.000s
+sys	0m0.000s
+
+
+Starting 4 VMs
+real	0m24.542s
+user	0m0.060s
+sys	0m0.012s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      620080      260816        2656      511288      682480
+Swap:       1048572           0     1048572
+KiB Swap:  1048572 total,  1048572 free,        0 used.   676824 avail Mem 

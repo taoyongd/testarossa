@@ -13,11 +13,12 @@ LARGE_XS_HOST = ["10.71.136.103",  # xrtuk-05-03-perf
                  "10.71.136.106",  # xrtuk-05-06-perf
                  "10.71.136.107"]  # xrtuk-05-07-perf
 
-XS_HOST_4 = ["10.71.136.108", # xrtuk-05-08-perf
-             "10.71.136.103"] # xrtuk-05-03-perf
+XS_HOST_4 = "10.71.136.106" # xrtuk-05-06-perf
 
-XS_HOST_8 = ["10.71.136.104", # xrtuk-05-04-perf
-             "10.71.136.106"] # xrtuk-05-06-perf
+XS_HOST_8 = "10.71.136.107" # xrtuk-05-07-perf
+
+XS_HOST_16 = ["10.71.136.103",  # xrtuk-05-03-perf
+              "10.71.136.104"]  # xrtuk-05-04-perf 
 
 BRANCHES = ["team-ring3-master",
             "master"]
@@ -84,34 +85,56 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  end
 
 # Defines 2 4-host pools
-  num_hosts = 2
-  num_per_host = 4
-  (0..num_hosts-1).each do |i|
-    (1..num_per_host).each do |j|
-      id = i*num_per_host + j #1-8
-      hostname = "pool-4-#{id}"
-      config.vm.define hostname do |host|
-        host.vm.box = "jonludlam/#{BRANCHES[i]}"
-        host.vm.network "public_network", bridge: "xenbr0"
-        host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
-        host.vm.synced_folder "test-vm", "/boot/guest", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
-        config.vm.provider "xenserver" do |xs|
-          xs.name = hostname
-          xs.memory = 6144
-          xs.xs_host = XS_HOST_4[i]
-        end
-        host.vm.provision "shell", path: "scripts/xs/update.sh"
-      end
-    end
-  end
+#  num_hosts = 1
+#  num_per_host = 4
+#  (0..num_hosts-1).each do |i|
+#    (1..num_per_host).each do |j|
+#      id = i*num_per_host + j #1-8
+#      hostname = "pool-4-#{id}"
+#      config.vm.define hostname do |host|
+#        host.vm.box = "jonludlam/#{BRANCHES[i]}"
+#        host.vm.network "public_network", bridge: "xenbr0"
+#        host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#        host.vm.synced_folder "test-vm", "/boot/guest", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#        config.vm.provider "xenserver" do |xs|
+#          xs.name = hostname
+#          xs.memory = 6144
+#          xs.xs_host = XS_HOST_4
+#        end
+#        host.vm.provision "shell", path: "scripts/xs/update.sh"
+#      end
+#    end
+#  end
 
 # Defines 2 8-host pools
+#  num_hosts = 1
+#  num_per_host = 8
+#  (0..num_hosts-1).each do |i|
+#    (1..num_per_host).each do |j|
+#      id = i*num_per_host + j #1-16
+#      hostname = "pool-8-#{id}"
+#      config.vm.define hostname do |host|
+#        host.vm.box = "jonludlam/#{BRANCHES[i]}"
+#        host.vm.network "public_network", bridge: "xenbr0"
+#        host.vm.synced_folder "scripts", "/scripts", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#        host.vm.synced_folder "test-vm", "/boot/guest", type:"rsync", rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+#        config.vm.provider "xenserver" do |xs|
+#          xs.name = hostname
+#          xs.memory = 6144
+#          xs.xs_host = XS_HOST_8
+#        end
+#        host.vm.provision "shell", path: "scripts/xs/update.sh"
+#      end
+#    end
+#  end
+
+# Defines 1 16-host pools
   num_hosts = 2
-  num_per_host = 8
+  num_per_host = 16
   (0..num_hosts-1).each do |i|
     (1..num_per_host).each do |j|
       id = i*num_per_host + j #1-16
-      hostname = "pool-8-#{id}"
+      hostname = "pool-16-#{i}-#{id}"
       config.vm.define hostname do |host|
         host.vm.box = "jonludlam/#{BRANCHES[i]}"
         host.vm.network "public_network", bridge: "xenbr0"
@@ -120,13 +143,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.provider "xenserver" do |xs|
           xs.name = hostname
           xs.memory = 6144
-          xs.xs_host = XS_HOST_8[i]
+          xs.xs_host = XS_HOST_16[i]
         end
         host.vm.provision "shell", path: "scripts/xs/update.sh"
       end
     end
   end
-
   config.vm.provider "xenserver" do |xs|
     xs.use_himn = true
     xs.memory = 1024

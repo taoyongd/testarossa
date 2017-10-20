@@ -51,10 +51,16 @@ function setup_large {
   setup_hosts $HOSTS
 }
 
+function setup_r3_test {
+  HOSTS=$(vagrant status |  grep ^"pool-16" |cut -f1 -d' '|xargs echo)
+  setup_hosts $HOSTS
+}
+
 for arg in "$@"
 do
   if [ "$arg" == "small" ]; then setup_small; fi
   if [ "$arg" == "medium" ]; then setup_medium; fi
   if [ "$arg" == "large" ]; then setup_large; fi
+  if [ "$arg" == "r3" ]; then setup_r3_test; fi;
 done
 

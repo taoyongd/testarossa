@@ -1,0 +1,72 @@
+Initial swap : 
+KiB Swap:  8512508 total,  8512508 free,        0 used.  7967212 avail Mem 
+
+
+Starting 64 VMs
+real	6m15.730s
+user	0m1.192s
+sys	0m0.116s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      382916       21820         792      203680      179980
+Swap:       1048572       10748     1037824
+KiB Swap:  1048572 total,  1037824 free,    10748 used.   174748 avail Mem 
+
+
+Starting 64 VMs
+real	10m32.116s
+user	0m0.976s
+sys	0m0.060s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      394412       15148         936      198856      167340
+Swap:       1048572       12812     1035760
+KiB Swap:  1048572 total,  1035760 free,    12812 used.   161772 avail Mem 
+
+
+Starting 64 VMstime: 632.157s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      392804       28572         944      187040      167552
+Swap:       1048572       16232     1032340
+KiB Swap:  1048572 total,  1032340 free,    16232 used.   162156 avail Mem 
+
+
+Starting 64 VMstime: 584.331s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      410484       28704        1144      169228      148096
+Swap:       1048572       22288     1026284
+KiB Swap:  1048572 total,  1026284 free,    22288 used.   142412 avail Mem 
+
+
+Starting 64 VMstime: 573.514s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      412580       26288        1268      169548      144592
+Swap:       1048572       25628     1022944
+KiB Swap:  1048572 total,  1022944 free,    25628 used.   139020 avail Mem 
+
+
+Starting 64 VMstime: 546.814s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      425700       29224        1436      153492      130044
+Swap:       1048572       34472     1014100
+KiB Swap:  1048572 total,  1014100 free,    34472 used.   124932 avail Mem 
+
+
+Starting 64 VMstime: 573.541s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      429224       30936        1656      148256      125088
+Swap:       1048572       38040     1010532
+KiB Swap:  1048572 total,  1010532 free,    38040 used.   119384 avail Mem 
+
+
+Starting 64 VMstime: 637.848s
+
+              total        used        free      shared  buff/cache   available
+Mem:         608416      438404       31636        1444      138376      114988
+Swap:       1048572       49340      999232
+KiB Swap:  1048572 total,   999232 free,    49340 used.   109308 avail Mem 

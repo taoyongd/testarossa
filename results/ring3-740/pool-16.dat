@@ -1,0 +1,72 @@
+
+Starting 64 VMs
+real	3m5.158s
+user	0m1.036s
+sys	0m0.088s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      339380      688780        1088      364024     1002604
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	3m26.712s
+user	0m0.968s
+sys	0m0.108s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      373060      648424        1316      370700      967364
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	4m8.276s
+user	0m1.052s
+sys	0m0.080s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      394732      618448        1484      379004      944112
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	4m45.958s
+user	0m1.008s
+sys	0m0.092s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      414184      591704        1576      386296      923168
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	5m3.156s
+user	0m1.020s
+sys	0m0.088s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      423396      574952        1660      393836      912568
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	5m23.889s
+user	0m0.960s
+sys	0m0.096s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      446204      544576        1752      401404      888252
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	5m37.488s
+user	0m1.072s
+sys	0m0.088s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      455120      527904        1956      409160      877728
+Swap:       1048572           0     1048572
+
+Starting 64 VMs
+real	6m4.103s
+user	0m1.036s
+sys	0m0.088s
+
+              total        used        free      shared  buff/cache   available
+Mem:        1392184      474412      500988        2008      416784      857056
+Swap:       1048572           0     1048572
