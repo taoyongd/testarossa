@@ -1,7 +1,4 @@
 #!/bin/bash
-set -e
-set -x
-
 
 # Start a VM on the given host ($1)
 echo "Starting a VM on $1..."
