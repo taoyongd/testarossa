@@ -22,6 +22,7 @@ function setup_hosts {
     do echo "Fixing host $host";
     # Vagrant rsync isn't reliable enough -64 hosts sometimes has some fail.. so just scp the scripts over to make sure
     . /root/testarossa/scripts/scale/fix_scripts.sh $host
+    . /root/testarossa/scripts/scale/fix_boot.sh $host
     ssh -F $SSH_CONFIG_FILE $host "/scripts/scale/rename_self.sh $host; /scripts/scale/fix_networking.sh; /scripts/scale/assign_license.sh";
   done
   echo $HOSTS
