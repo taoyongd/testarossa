@@ -7,3 +7,6 @@
 # provisioning after a reboot
 - name: Sync
   command: sync
+
+- name: Enable log syncing
+  command: sed -i 's/#$ActionFileEnableSync on/$ActionFileEnableSync on/' /etc/rsyslog.conf
