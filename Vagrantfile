@@ -4,13 +4,14 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "feature-clustering")
+LOCAL_BRANCH = ENV.fetch("LOCAL_BRANCH", "feature-REQ477-master")
 
 USER = ENV.fetch("USER")
 folders = {'xs/rpms' => '/rpms',
 #           'xs/opt' => '/opt',
            'xs/sbin' => '/sbin',
            'xs/bin' => '/bin',
+           'xs/etc/rsyslog.d/' => '/etc/rsyslog.d/',
 #           'xs/boot' => '/boot',
 #	   'xs/usr/sbin' => '/usr/sbin',
 #           'scripts' => '/scripts'
@@ -108,7 +109,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "xenserver" do |xs|
     xs.use_himn = true
     xs.memory = 1024
-    xs.xs_host = "gandalf.uk.xensource.com"
+    xs.xs_host = "xrtuk-05-08-perf.xenrt.citrite.net"
     xs.xs_username = "root"
     xs.xs_password = "xenroot"
   end
