@@ -54,7 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
 # Defines scale{1,2,3} for pool size investigation
-  num_hosts = 4
+  num_hosts = LARGE_XS_HOST.length
   num_per_host = 16
   (0..num_hosts-1).each do |i|
     (1..num_per_host).each do |j|
