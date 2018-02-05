@@ -17,6 +17,16 @@ function start_many {
   wait;
 }
 
+function start_many_small {
+  let vms_each=$1/3
+  echo "Starting $1 VMs on medium pool ($vms_each each)..."
+  master="small1"  
+
+  printf "\n\nStarting $1 VMs\n" >> $write_to
+  { time start_many "small" 3 $vms_each 2>> /dev/null ; } 2>> $write_to
+  printf "\n" >> $write_to
+  ssh -F $SSH_CONFIG_FILE $master "free" >> $write_to
+}
 function start_many_medium {
   let vms_each=$1/16
   echo "Starting $1 VMs on medium pool ($vms_each each)..."
@@ -39,5 +49,6 @@ function start_many_large {
   ssh -F $SSH_CONFIG_FILE $master "free" >> $write_to
 }
 
+if [ "$1" == "small" ]; then start_many_small $2; fi
 if [ "$1" == "medium" ]; then start_many_medium $2; fi
 if [ "$1" == "large" ]; then start_many_large $2; fi
